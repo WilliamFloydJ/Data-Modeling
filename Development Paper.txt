@@ -1,0 +1,48 @@
+﻿BrainStorming:
+
+
+* Users(Email,Password)
+* Recipes(Public,Private)(Ingredients,Instructions)
+* Ingredients
+* Occasions(Recipes)
+* Viewable Recipes
+* Grocery List(Ingredients)
+
+
+
+
+Table Ideas:
+
+
+        Users - A table keeping the users Email and Password. Along with all of their published Recipes , Occasions and their personal Grocery List.
+
+
+        Recipes - A table of all recipes that were published and set to Private. Including the Ingredients and instructions of the table.
+        
+        Occasions - Saved Recipes under certain occasions.
+
+
+        Grocery List - The saved Ingredients for the recipes you've saved.
+
+
+Relationship:
+
+
+        One-to-one:
+Users to Grocery list        
+
+
+        One-to-many:
+        Occasions to Recipes
+
+
+        Many-to-many:
+        
+Create Table Users(Id serial PRIMARY KEY, email text, password text);
+CREATE TABLE Ingredients (id serial PRIMARY KEY, Body text,User_ID int references Users(id));
+CREATE TABLE Recipes (id serial PRIMARY KEY, Ingredient_ID int references Ingredients(id),User_ID int references Users(id),Body text,Public Boolean);
+CREATE TABLE Occasions (id serial PRIMARY KEY, Recepy_Id int references Recipes(id),User_ID int references Users(id));
+CREATE TABLE Ingredients_Recipes_Join (id serial PRIMARY KEY, Ingredient_ID int references Ingredients(id), Recepy_Id int references Recipes(id));
+
+
+CREATE TABLE GROCERY_List (id serial PRIMARY KEY, Ingredient_ID int references Ingredients(id),User_ID int references Users(id));
